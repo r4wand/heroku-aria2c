@@ -38,7 +38,6 @@ app.get('/', (req, res) => {
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="icon" href="favicon.ico" type="image/gif" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
@@ -80,6 +79,21 @@ app.get('/', (req, res) => {
           Downloads
         </button>
       </div>
+      <div
+        class="text-center mt-6 text-blue-300 underline cursor-pointer"
+        id="no_secret"
+      >
+        <span id="no_secret_text">
+          Don't have a secret?
+        </span>
+        <div class="justify-center rounded-lg hidden" id="no_secret_gif">
+          <img
+            class="rounded-lg"
+            src="no_sec.gif"
+            alt="mother of dragon from game of throne saying deak with it for not having a secret to provide"
+          />
+        </div>
+      </div>
     </div>
 
     <script>
@@ -87,19 +101,31 @@ app.get('/', (req, res) => {
         if (secret.value == "") {
           secret_available.style.display = "block";
         } else {
-        open('/ariang/#!/settings/rpc/set/wss/'+location.hostname+'/443/jsonrpc/'+btoa(secret.value),'_blank')
+          open(
+            `/ariang/#!/settings/rpc/set/wss/
+            ${location.hostname}
+            /443/jsonrpc/
+            ${secret.value}`,
+            "_blank"
+          );
         }
       };
       downloads.onclick = function () {
         if (secret.value == "") {
           secret_available.style.display = "block";
         } else {
-          open('/downloads/'+btoa(secret.value)+'/')
+          open(`/downloads/${secret.value}/`);
         }
+      };
+
+      no_secret.onclick = function () {
+        no_secret_text.style.display = "none";
+        no_secret_gif.style.display = "flex";
       };
     </script>
   </body>
 </html>
+
 
 `)
 })
