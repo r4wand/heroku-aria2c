@@ -89,7 +89,7 @@ app.get('/', (req, res) => {
         <div class="justify-center rounded-lg hidden" id="no_secret_gif">
           <img
             class="rounded-lg"
-            src="no_sec.gif"
+            src="https://res.cloudinary.com/rawand/image/upload/v1588030806/Aria2/no_sec_p4evx6.gif"
             alt="mother of dragon from game of throne saying deak with it for not having a secret to provide"
           />
         </div>
