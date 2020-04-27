@@ -101,20 +101,14 @@ app.get('/', (req, res) => {
         if (secret.value == "") {
           secret_available.style.display = "block";
         } else {
-          open(
-            `/ariang/#!/settings/rpc/set/wss/
-            ${location.hostname}
-            /443/jsonrpc/
-            ${secret.value}`,
-            "_blank"
-          );
+        open('/ariang/#!/settings/rpc/set/wss/'+location.hostname+'/443/jsonrpc/'+btoa(secret.value),'_blank')
         }
       };
       downloads.onclick = function () {
         if (secret.value == "") {
           secret_available.style.display = "block";
         } else {
-          open(`/downloads/${secret.value}/`);
+       open('/downloads/'+btoa(secret.value)+'/')
         }
       };
 
