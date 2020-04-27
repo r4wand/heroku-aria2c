@@ -35,18 +35,72 @@ app.use(
 app.use('/ariang', express.static(__dirname + '/ariang'))
 app.get('/', (req, res) => {
 	res.send(`
-<label for="secret">Enter your aria2 secret:</label>
-<input id="secret" type="text">
-<button id="panel">Go to AriaNg panel</button>
-<button id="downloads">View downloaded files</button>
-<script>
-panel.onclick=function(){
-	open('/ariang/#!/settings/rpc/set/wss/'+location.hostname+'/443/jsonrpc/'+btoa(secret.value),'_blank')
-}
-downloads.onclick=function(){
-	open('/downloads/'+btoa(secret.value)+'/')
-}
-</script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" href="favicon.ico" type="image/gif" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+
+    <title>AriaStark</title>
+  </head>
+  <body class="bg-gray-900 font-mono text-gray-200">
+    <div class="max-w-screen-lg mx-auto mt-16">
+      <h1 class="text-center text-4xl">
+        AriaStark
+      </h1>
+      <div class="flex flex-col justify-center mt-6">
+        <input
+          id="secret"
+          class="w-1/2 self-center text-gray-800 px-2 py-1 text-2xl rounded-lg outline-none focus:shadow-outline"
+          type="text"
+          required
+          placeholder="Secret"
+        />
+        <div
+          id="secret_available"
+          class="self-center mt-6 bg-red-400 w-1/2 rounded text-center text-lg py-1 hidden"
+        >
+          No Secret Provided
+        </div>
+        <button
+          class="w-1/2 self-center text-center text-xl bg-gray-700 mt-6 px-2 py-1 rounded-lg outline-none focus:shadow-outline hover:bg-gray-600"
+          id="panel"
+        >
+          AriaNg
+        </button>
+        <button
+          class="w-1/2 self-center text-center text-xl bg-gray-700 mt-3 px-2 py-1 rounded-lg outline-none focus:shadow-outline hover:bg-gray-600"
+          id="downloads"
+        >
+          Downloads
+        </button>
+      </div>
+    </div>
+
+    <script>
+      panel.onclick = function () {
+        if (secret.value == "") {
+          secret_available.style.display = "block";
+        } else {
+        open('/ariang/#!/settings/rpc/set/wss/'+location.hostname+'/443/jsonrpc/'+btoa(secret.value),'_blank')
+        }
+      };
+      downloads.onclick = function () {
+        if (secret.value == "") {
+          secret_available.style.display = "block";
+        } else {
+          open('/downloads/'+btoa(secret.value)+'/')
+        }
+      };
+    </script>
+  </body>
+</html>
+
 `)
 })
 server.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`))
